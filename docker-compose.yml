@@ -1,0 +1,24 @@
+nextcloud:
+  image: img-nextcloud:0.4
+  links:
+    - nextcloud-db:nextcloud   # If using MySQL
+  ports:
+    - "82:443"
+  volumes:
+    - /var/www/nextcloud/data:/usr/share/nginx/html/nextcloud/data
+    - /var/www/nextcloud/config:/usr/share/nginx/html/nextcloud/config
+    - /var/www/ssl:/etc/nginx/ssl:ro
+    
+  command: /sbin/my_init nginx
+
+# If using MySQL
+nextcloud-db:
+  image: mariadb:10
+  volumes:
+    - /var/www/nextcloud/db:/var/lib/mysql
+  environment:
+    - MYSQL_ROOT_PASSWORD=TNKubP6tj3EG
+    - MYSQL_DATABASE=nextcloud
+    - MYSQL_USER=nextcloud
+    - MYSQL_PASSWORD=SqyZqsa8BwCn
+    
